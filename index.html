@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html>
+<head>
+<script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="jquery.loading.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#bar').loading({
+		duration: 2000,
+		width: 500,
+		height: 3,
+		color: '#000088',
+		border: '1px solid #000088',
+		padding: '1px',
+		displayPercent: true,
+		clickTrigger: '#clickTrigger',
+		onBegin: function(){ $('#clickTrigger').text('starting!'); },
+		onComplete: function(){ $('#clickTrigger').text('Done!'); },
+		specialPercents: [25,50,75,100],
+		onSpecialPercent: function(curPercent)
+						{
+							var curDots = $('#dots').text();
+							$('#dots').text(curDots+'.');
+						}
+		});
+});
+</script>
+<style>
+body { font-size:11px; font-family:Verdana, Arial, Helvetica; }
+pre { background:#eee; border:2px solid #ccc; padding:4px; }
+</style>
+</head>
+<body>
+<div style="width:800px; margin:20px auto;">
+	<div id="bar"></div>
+	<a href="#" id="clickTrigger">Click!</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;<span id="dots"></span>
+	
+	<p>The above is an implementation of an animated progress bar similar to the interface widget common to most operating systems.  while this doesn't really have much application in a website environment, I was bored and decided to whip it up (it took about two hours).  It was either this or watch Steven Segal movies.</p>
+	<p>It was made as a <a href="http://www.jquery.com" target="_blank">jQuery</a> plugin, so it's fairly easy for other developers to add to their own sites.  the HTML code creating this particular control is:</p>
+	<pre>&lt;div id="bar"&gt;&lt;/div&gt;
+&lt;a href="#" id="clickTrigger"&gt;Click!&lt;/a&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span id="dots"&gt;&lt;/span&gt;</pre>
+	<p>And the javascript code is:</p>
+	<pre>$(document).ready(function(){
+	$('#bar').loading({
+		duration: 2000,
+		width: 500,
+		height: 3,
+		color: '#000088',
+		border: '1px solid #000088',
+		padding: '1px',
+		displayPercent: true,
+		clickTrigger: '#clickTrigger',
+		onBegin: function(){ $('#clickTrigger').text('starting!'); },
+		onComplete: function(){ $('#clickTrigger').text('Done!'); },
+		specialPercents: [25,50,75,100],
+		onSpecialPercent: function(curPercent)
+						{
+							var curDots = $('#dots').text();
+							$('#dots').text(curDots+'.');
+						}
+		});
+});</pre>
+	<p>Some notes:</p>
+	<ul>
+		<li>jQuery 1.4+ is required (1.7.2 included in repository)</li>
+		<li>there is a bug with the 'specialPercents' &amp; 'onSpecialPercent' functionality.  note the code above.  it is meant to add a dot after the start button when it reaches 25%, 50%, 75%, and 100%, meaning that by the time the progress bar reaches the end there should be 4 more dots in the list.  This is not always the case - sometimes it only adds 3.  This is due to a rounding issue that I may or may not look into later depending on how bored I am</li>
+	</ul>
+</div>
+</body>
+</html>
